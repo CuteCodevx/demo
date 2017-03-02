@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<style>
+    	#small{
+			width:250px;
+			height:250px;
+			position:relative;
+			float:left;
+			margin-right:10px;}
+		#small img{
+			width:250px;}	
+		#small div{
+			width:100px;
+			height:100px;
+			opacity:0.5;
+			background:yellowgreen;
+			position:absolute;
+			left:0;
+			top:0;
+			cursor:move;
+			display:none;}	
+		#big{
+			width:400px;
+			height:400px;
+			overflow:hidden;
+			float:left;
+			display:none;
+			position:relative;}
+		#big img{
+			position:absolute;
+			left:0;
+			top:0;}
+    </style>
+	<script>
+    	window.onload=function(){
+			var small=document.getElementById("small");
+			var big=document.getElementById("big");
+			var div=document.querySelector("#small div");
+			var bigImg=document.querySelector("#big img");
+			
+			small.onmouseover=function(){
+				big.style.display="block";
+				div.style.display="block";
+			};
+			div.onmousemove=function(ev){
+				//减去 small与small的父级之间的距离
+				var l=ev.clientX-div.offsetWidth/2-small.offsetLeft; 
+				var t=ev.clientY-div.offsetHeight/2-small.offsetTop;  
+				
+				if(l<0){
+					l=0;  //是offsetWidth  不是offsetLeft，offsetLeft是相对于最近的有定位的父级的距离，offsetWidth是元素的宽度（包含边框）
+				}else if(l>small.offsetWidth-div.offsetWidth){
+					l=small.offsetWidth-div.offsetWidth;
+				}
+				if(t<0){
+					t=0;
+				}else if(t>small.offsetHeight-div.offsetHeight){
+					t=small.offsetHeight-div.offsetHeight;
+				}
+
+			
+			var scaleX=l/(small.offsetWidth-div.offsetWidth);
+			var scaleY=t/(small.offsetHeight-div.offsetHeight);
+			
+			bigImg.style.left=-scaleX*(bigImg.offsetWidth-big.offsetWidth)+'px';
+			bigImg.style.top=-scaleY*(bigImg.offsetHeight-big.offsetHeight)+'px';			
+							
+				div.style.left=l+'px';
+				div.style.top=t+'px';
+			
+			
+			};
+			small.onmouseout=function(){
+				big.style.display="none";
+				div.style.display="none";
+			};
+	}
+    </script>
+
+</head>
+
+<body>
+	<div id="small">
+    	<img src="images/img1.jpg"/>
+        <div></div>
+    </div>
+    <div id="big">
+    	<img src="images/img1.jpg"/>
+    </div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+*{margin:0px;padding:0px;}
+#imgwrap{
+	width:800px;
+	height:400px;
+	margin:20px auto;
+	padding:0px;
+	perspective:800px;/*眼睛离物体的距离*/
+	}
+#imgwrap img{
+	width:80px;
+	height:80px;
+	float:left;/*用浮动解决图片之间的缝隙，或者删除img标签之间的空格换行键也可解决，就是太麻烦*/
+	}
+#btn{
+	width:100px;
+	margin:0px auto;
+	text-align:center;
+	padding:10px;
+	font-size:16px;
+	line-height:16px;
+	background-color:green;
+	color:white;
+	border-radius:5px;
+	cursor:pointer;
+	box-shadow:2px 2px 5px rgba(0,0,0,0.5);}
+
+</style>
+<script>
+window.onload=function(){
+	var imgs=document.querySelectorAll("img");
+	var btn=document.getElementById("btn");
+	var on=true;//这个变量用来决定用户是否可以再次点击
+	
+	btn.onclick=function(){
+		if(!on){
+			return;}
+		on=false;
+		
+		
+		var endNum=0;//存完成的图片数量
+		var allEnd=0;
+		
+		for(var i=0;i<imgs.length;i++){
+			//imgs[i].style.transition="1s"; //transition过渡
+			(function(i){
+				
+					setTimeout(function(){//时间差 用setTimeout定时器延时
+					montion(imgs[i],"10ms",function(){
+						imgs[i].style.transform="scale(0)";//scale缩放到0 因为用了call，所以imgs[i]可以为this
+					//	this.style.opacity=0;
+					
+					},function(){//第二个运动 上一步走完，该干的事
+ 						montion(this,"1s",function(){
+							this.style.transform="scale(1)";
+							this.style.opacity=0;
+							
+							},function(){
+								endNum++;//一张图走完，就让它加1
+								if(endNum==imgs.length){
+									toBig();
+									}
+								});
+						
+						});
+					},Math.random()*1000); //随机数 最大1s
+				})(i);
+
+			}
+			
+
+		
+		
+		//第三个运动
+		function toBig(){
+			for(var i=0;i<imgs.length;i++){
+				imgs[i].style.transition="";
+			//	imgs[i].style.opacity=1;
+				imgs[i].style.transform="rotateY(0deg) translateZ(-"+Math.random()*500+"px)";
+									//rotateY绕Y轴旋转 0deg是角度,初始值
+				//函数自执行 i传进来 目的是能够找到i
+				(function(i){
+					setTimeout(function(){
+						montion(imgs[i],"2s",function(){
+							this.style.opacity=1;
+							this.style.transform="rotateY(-360deg) translateZ(0)";
+							},function(){
+								allEnd++;
+								if(allEnd==imgs.length){
+									on=true;
+									}
+								
+								});
+						
+						
+						},Math.random()*1000);
+					
+					
+					
+					})(i);
+				}
+			
+			}
+	};
+	//原生js,对运动的函数进行封装 (运动对象，运动时间，运动的属性函数（要运动的属性很多的话，可以放在
+	//一个函数中），运动完成后要做的其他事情（回调函数）)
+	function montion(obj,time,doFn,callBack){ //animation比transition好用
+		obj.style.transition=time;
+		doFn.call(obj);//调用函数 并且将this指向obj
+		
+		var called=false;
+		
+		obj.addEventListener("transitionend",function(){
+			if(!called){
+				callBack&&callBack.call(obj);
+				called=true;}
+			
+			},false); 
+		};
+	
+	
+	};
+
+</script>
+</head>
+
+<body>
+<div id="imgwrap">
+	<img src="images/1.jpg" alt="">
+    <img src="images/2.jpg" alt="">
+	<img src="images/3.jpg" alt="">
+	<img src="images/4.jpg" alt="">
+	<img src="images/5.jpg" alt="">
+	<img src="images/6.jpg" alt="">
+	<img src="images/7.jpg" alt="">
+	<img src="images/8.jpg" alt="">
+	<img src="images/9.jpg" alt="">
+	<img src="images/10.jpg" alt="">
+	<img src="images/11.jpg" alt="">
+	<img src="images/12.jpg" alt="">
+	<img src="images/13.jpg" alt="">
+	<img src="images/14.jpg" alt="">
+	<img src="images/15.jpg" alt="">
+	<img src="images/16.jpg" alt="">
+	<img src="images/17.jpg" alt="">
+	<img src="images/18.jpg" alt="">
+	<img src="images/19.jpg" alt="">
+	<img src="images/20.jpg" alt="">
+	<img src="images/21.jpg" alt="">
+	<img src="images/22.jpg" alt="">
+	<img src="images/23.jpg" alt="">
+	<img src="images/24.jpg" alt="">
+	<img src="images/25.jpg" alt="">
+	<img src="images/26.jpg" alt="">
+	<img src="images/27.jpg" alt="">
+	<img src="images/28.jpg" alt="">
+	<img src="images/29.jpg" alt="">
+	<img src="images/30.jpg" alt="">
+	<img src="images/31.jpg" alt="">
+	<img src="images/32.jpg" alt="">
+	<img src="images/33.jpg" alt="">
+	<img src="images/34.jpg" alt="">
+	<img src="images/35.jpg" alt="">
+	<img src="images/36.jpg" alt="">
+	<img src="images/37.jpg" alt="">
+	<img src="images/38.jpg" alt="">
+	<img src="images/39.jpg" alt="">
+	<img src="images/40.jpg" alt="">
+	<img src="images/41.jpg" alt="">
+	<img src="images/42.jpg" alt="">
+	<img src="images/43.jpg" alt="">
+	<img src="images/44.jpg" alt="">
+	<img src="images/45.jpg" alt="">
+	<img src="images/46.jpg" alt="">
+	<img src="images/47.jpg" alt="">
+	<img src="images/48.jpg" alt="">
+	<img src="images/49.jpg" alt="">
+	<img src="images/50.jpg" alt="">
+</div>
+<div id="btn">点击查看效果
+</div>
+</body>
+</html>

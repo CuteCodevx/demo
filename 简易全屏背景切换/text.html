@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,h2,p{
+            margin:0;
+        }
+        ul{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        body{
+            background: #191919;
+            transition: 0.7s;
+        }
+        #content{
+            width: 960px;
+            margin: 0 auto 100px auto;
+        }
+        .text{
+            width:300px;
+            height:200px;
+            color:#fff;
+            float: left;
+            margin-top: 170px;
+            position: relative;
+        }
+        .text h2{
+            width:200px;
+            height:60px;
+            font:36px/60px "微软雅黑";
+            font-weight: bold;
+            margin-bottom:40px;
+            position: absolute;
+            top:0;
+            opacity: 0;
+            transition: .5s .2s ease-out;
+        }
+        .text p{
+            width:250px;
+            height: 18px;
+            position: absolute;
+            top:85px;
+            opacity: 0;
+            transition: .5s .1s ease-out;
+        }
+        .text a{
+            width:100px;
+            line-height: 25px;
+            position: absolute;
+            top:150px;
+            background: #fff;
+            color: #666;
+            text-align: center;
+            font-size: 12px;
+            display: block;
+            opacity: 0;
+            transition: .5s ease-out;
+        }
+        .text h2:nth-of-type(1) ,.text p:nth-of-type(1),.text a:nth-of-type(1){
+            opacity: 1;
+        }
+        .img{
+            float: right;
+            width: 506px;
+            height:440px;
+            margin-top: 80px;
+            position: relative;
+        }
+        .img img{
+            opacity: 0;
+            position: absolute;
+            left:0;
+            top:0;
+            transition: .5s .1s ease-out;
+        }
+        .img img:nth-of-type(1){
+            opacity: 1;
+        }
+        .nav{
+            width: 960px;
+            height: 156px;
+            position: relative;
+            top:100px;
+            clear: both;
+        }
+        .nav ul{
+            height: 122px;
+            position: absolute;
+            left: 0;
+            top: 17px;
+            background: url("images/banner.png");
+            padding-left: 20px;
+            z-index: 2;
+        }
+        .nav ul li{
+            float: left;
+            width: 115px;
+            height: 122px;
+            text-indent:-100px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .select{
+            position: absolute;
+            left: 20px;
+            transition: .5s;
+        }
+        .select div:nth-of-type(1){
+            width: 115px;
+            height: 156px;
+            position: absolute;
+            border-radius: 10px;
+            background: #0084cf;
+            z-index: 1;
+        }
+        .select div:nth-of-type(2){
+            width:115px;
+            height:156px;
+            background: url(images/slide_bg.gif) center no-repeat;
+            z-index: 3;
+            position: absolute;
+        }
+        /*文字向上走*/
+        .text h2.toTop,.text p.toTop,.text a.toTop{
+            transform: translateY(-150px);
+            opacity: 0;
+        }
+        /*文字从上到中间*/
+        .text h2.toCenter,.text p.toCenter,.text a.toCenter{
+            transform: translateY(0px);
+            opacity: 1;
+        }
+        /*文字向下走*/
+        .text h2.toBottom,.text p.toBottom,.text a.toBottom{
+            transform: translateY(150px);
+            opacity: 0;
+        }
+        .img img.toRight{
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        .img img.toMiddle{
+            transform: translateX(0px);
+            opacity: 1;
+        }
+        .img img.toLeft{
+            transform: translateX(-100px);
+            opacity: 0;
+        }
+
+
+
+
+
+    </style>
+    <script>
+        window.onload=function () {
+            var select=document.querySelector('.select');
+            var lis=document.querySelectorAll('.nav li');
+            var bg=['#191919','#0d0d0d','#391b1b','#1b373a','#1c391b','#1b2638','#361b3a','#1a3929'];
+
+            var h2s=document.querySelectorAll(".text h2");
+            var ps=document.querySelectorAll(".text p");
+            var as=document.querySelectorAll(".text a");
+            var imgs=document.querySelectorAll("img");
+
+            var ln=0; //ln=lis[0]
+
+            var canclick=true;
+            for(var i=0;i<lis.length;i++){
+                lis[i].index=i;
+                lis[i].onclick=function () {
+                    if(!canclick){
+                        return;
+                    }
+                    canclick=false;
+
+                    var cn=this.index;
+
+                    select.style.left=this.offsetLeft+'px';
+                    document.body.style.background=bg[cn];
+
+                    //当前的文字先上去
+                    h2s[cn].className='toTop';
+                    ps[cn].className='toTop';
+                    as[cn].className='toTop';
+
+                    //上一个文字要下去
+                    h2s[ln].className='toBottom';
+                    ps[ln].className='toBottom';
+                    as[ln].className='toBottom';
+
+                    //当前的文字再下来
+                    setTimeout(function(){
+                        h2s[cn].className='toCenter';
+                        ps[cn].className='toCenter';
+                        as[cn].className='toCenter';
+
+                        ln=cn;
+                    },400);
+
+                    var n=0;
+                    h2s[cn].addEventListener('transitionend',function () {
+                        n++;
+                        if(n==1){
+                            canclick=true;
+                        }
+                    });
+
+                    imgs[cn].className='toRight';
+                    imgs[ln].className='toLeft';
+                    setTimeout(function () {
+                        imgs[cn].className='toMiddle';
+                    },200);
+
+                }
+            }
+
+
+
+
+        }
+    </script>
+</head>
+<body>
+    <div id="content">
+        <div class="text">
+            <h2>首页</h2>
+            <p>皮肤听声器属于第三类助听器。</p>
+            <a href="#">了解详情</a>
+            <h2>相关理论</h2>
+            <p>皮肤听声是一种新的概念，</p>
+            <a href="#">了解详情</a>
+            <h2>发明者</h2>
+            <p>李建文，1982年毕业于西北大学数学系，理学学士。</p>
+            <a href="#">了解详情</a>
+            <h2>产品介绍</h2>
+            <p>皮肤听声就主要用于解决聋人的听觉难题 </p>
+            <a href="#">了解详情</a>
+            <h2>使用记录</h2>
+            <p>在研制皮肤听声器的同时一直学校进行试验</p>
+            <a href="#">了解详情</a>
+            <h2>相关下载</h2>
+            <p>用来训练聋人分辨汉语语音和发声的计算机软件系统</p>
+            <a href="#">了解详情</a>
+            <h2>联系我们</h2>
+            <p>陕西科技大学 皮肤听声研究所</p>
+            <a href="#">了解详情</a>
+            <h2>论坛入口</h2>
+            <p>高性能皮肤听声器宣传页</p>
+            <a href="#">了解详情</a>
+        </div>
+        <div class="img">
+            <img src="images/img_01.png"/>
+            <img src="images/img_02.png"/>
+            <img src="images/img_03.png"/>
+            <img src="images/img_04.png"/>
+            <img src="images/img_05.png"/>
+            <img src="images/img_06.png"/>
+            <img src="images/img_07.png"/>
+            <img src="images/img_08.png"/>
+        </div>
+        <div class="nav">
+            <div class="select">
+                <div></div>
+                <div></div>
+            </div>
+            <ul>
+                <li>小费传媒</li>
+                <li>地域分布</li>
+                <li>产品服务</li>
+                <li>系统优势</li>
+                <li>经典案例</li>
+                <li>常见问题</li>
+                <li>小费洞见</li>
+                <li>联系我们</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

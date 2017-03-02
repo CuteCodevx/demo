@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            background: #8bf;
+            transition: 0.5s ease-out;
+        }
+        #content{
+            width:1198px;
+            height:700px;
+            display: flex;     /*给父级添加*/
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-between;
+            margin: 120px auto;
+
+            transform-style:preserve-3d ;
+            transform:perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+        .box{
+            width:150px;
+            height:150px;
+            position: relative;
+
+            transform-style:preserve-3d ;
+            transform:perspective(1000px) rotateX(0deg) rotateY(0deg);
+            transition: 0.8s;
+
+        }
+
+        .box:nth-child(1n) div{
+            background: url(images/img1.jpg) no-repeat center;
+        }
+        .box:nth-child(2n) div{
+            background: url(images/img2.jpg) no-repeat center;
+        }
+        .box:nth-child(3n) div{
+            background: url(images/img3.jpg) no-repeat center;
+        }
+        .box:nth-child(4n) div{
+            background: url(images/img4.jpg) no-repeat center;
+        }
+        .box:nth-child(5n) div{
+            background: url(images/img5.jpg) no-repeat center;
+        }
+
+        .box div{
+            width:150px;
+            height:150px;
+            box-sizing: border-box;
+            border: 10px solid #fff;
+            position: absolute;
+            left:0;
+            top:0;
+
+            overflow: hidden;
+
+        }
+
+
+        .box div:nth-of-type(1){
+            transform:translateZ(75px);
+        }
+        .box div:nth-of-type(2){
+            transform:translateZ(-75px);
+        }
+        .box div:nth-of-type(3){
+            transform: translateY(75px) rotateX(90deg);
+        }
+        .box div:nth-of-type(4){
+            transform:translateY(-75px) rotateX(90deg) ;
+        }
+        .box div:nth-of-type(5){
+            transform:rotateY(90deg) translateZ(75px) ;
+        }
+        .box div:nth-of-type(6){
+            transform:rotateY(90deg) translateZ(-75px) ;
+        }
+        span{
+            display: block;
+            width:60px;
+            height:60px;
+            box-sizing: border-box;
+            border-radius: 50%;
+            position: absolute;
+            right:-30px;
+            bottom:-30px;
+            background: pink;
+            text-indent:9%;
+            padding-top: 10px;
+            text-shadow: 1px 1px 3px #fff;
+        }
+        .box:nth-child(1n) span{
+            background: rgba(230,222,0,0.8);
+        }
+        .box:nth-child(2n) span{
+            background: rgba(180,238,180,0.8);
+        }
+        .box:nth-child(3n) span{
+            background: rgba(255,193,193,0.8);
+        }
+        .box:nth-child(4n) span{
+            background:rgba(238,32,205,0.8);
+        }
+    </style>
+    <script>
+        window.onload=function () {
+            var box=document.querySelectorAll('.box');
+            var rotate=['rotateX(180deg)','rotateX(-180deg)','rotateY(180deg)','rotateY(-180deg)'];  //字符串形式
+            var bgcolor=['#EEE9E9','#B2DFEE','#CAE1FF','#EED2EE','#F0FFFF','#FFE4E1','	#F0FFF0','	#EEE0E5','	#FFFACD','#DDA0DD','#EED8AE','#F5DEB3','#EEDC82','#AFEEEE','	#E6E6FA','	#F0FFF0','#C1FFC1'];
+            var content=document.getElementById('content');
+            for(var i=0;i<box.length;i++){
+                box[i].onmouseenter=function () {
+                    var css=rotate[Math.round(Math.random()*(rotate.length-1))];
+//                    console.log(css);
+                    this.style.transform='perspective(1000px) translateZ(150px)'+css;
+//                    console.log('鼠标移入');
+                    document.body.style.background=bgcolor[Math.round(Math.random()*(bgcolor.length-1))];
+                }
+                box[i].onmouseleave=function () {
+                    this.style.transform='';
+//                    console.log('鼠标移出');
+                }
+            }
+            document.onmousemove=function (ev) {
+                var degX=Math.round((ev.clientX/window.innerWidth-0.5)*15);
+                var degY=Math.round((ev.clientY/window.innerHeight-0.5)*15);
+                content.style.transform='perspective(1000px) rotateX('+degY+'deg) rotateY('+degX+'deg)';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="content">
+        <div class="box">
+            <div><span>1</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>2</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>3</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>4</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>5</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>6</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>7</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>8</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>9</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>10</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>11</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>12</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>13</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>14</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>15</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>16</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>17</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>18</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>19</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>20</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>21</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>22</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>23</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>24</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>25</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>26</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>27</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="box">
+            <div><span>28</span></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</body>
+</html>
